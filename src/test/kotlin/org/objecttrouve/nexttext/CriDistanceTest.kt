@@ -241,7 +241,7 @@ class CriDistanceTest {
 
         val distance = calc.distance(criCounts1, criCounts2)
 
-        assertThat(distance, Matchers.`is`(359))
+        assertThat(distance, Matchers.`is`(8256))
     }
 
     @Test fun distance__0_127__text13__text14() {
