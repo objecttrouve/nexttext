@@ -36,7 +36,7 @@ class CriCounter(
                 intervalCountsBySymbol[i][intervalLength]++
             }
         }
-      return CriCounts(minCodePoint, maxCodePoint, maxIntervalLength, intervalCountsBySymbol)
+      return CriCounts(minCodePoint, maxCodePoint, maxIntervalLength, text.length, intervalCountsBySymbol)
     }
 
     private fun ix(i: Int): Int {
