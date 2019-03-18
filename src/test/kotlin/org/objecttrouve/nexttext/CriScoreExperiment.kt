@@ -1,11 +1,17 @@
 package org.objecttrouve.nexttext
 
+import com.google.common.cache.CacheBuilder
 import org.junit.Ignore
 import org.junit.Test
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.stream.Collectors
+import com.google.common.cache.CacheLoader
+import com.google.common.cache.LoadingCache
+import java.util.concurrent.TimeUnit
+
+
 
 @Ignore("Manual usage.")
 class CriScoreExperiment {
@@ -13,6 +19,15 @@ class CriScoreExperiment {
     private val counter = CriCounter(0, 127)
     private val calc = CriScore()
     private val downloads = Paths.get(System.getProperty("user.home")).resolve("Downloads/nexttext/wiki").toAbsolutePath()
+    val contentCache: LoadingCache<Path, String> = CacheBuilder.newBuilder()
+            .maximumSize(10000)
+            .expireAfterWrite(10, TimeUnit.MINUTES)
+            .build(
+                    object : CacheLoader<Path, String>() {
+                        override fun load(path: Path): String {
+                            return read(path)
+                        }
+                    })
 
 
     @Test
@@ -55,7 +70,7 @@ class CriScoreExperiment {
                 for (j in revs.indices) {
                     val k = j + 1
                     if (k < revs.size) {
-                        val score = getScore(read(revs[j].resolve(pageTitle)), read(revs[k].resolve(pageTitle)))
+                        val score = getScore(contentCache.get(revs[j].resolve(pageTitle)), contentCache.get(revs[k].resolve(pageTitle)))
                         scoresSameVersions[i][j] = score
                     }
                 }
@@ -64,9 +79,9 @@ class CriScoreExperiment {
         val scoresAmongPages = Array(allPages.size) { DoubleArray(allPages.size) { -1.0 } }
         for (i in allPages.indices) {
             println("Cross: $i")
-            val contentI = read(lastRevision(allPages, i))
+            val contentI = contentCache.get(lastRevision(allPages, i))
             for (j in allPages.indices) {
-                val contentJ = read(lastRevision(allPages, j))
+                val contentJ = contentCache.get(lastRevision(allPages, j))
                 val score = getScore(contentI, contentJ)
                 scoresAmongPages[i][j] = score
             }
