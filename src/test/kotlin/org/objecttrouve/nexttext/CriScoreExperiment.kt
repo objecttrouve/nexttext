@@ -9,17 +9,19 @@ import java.nio.file.Paths
 import java.util.stream.Collectors
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
+import com.google.common.collect.Lists
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import java.util.concurrent.TimeUnit
-
-
-
+import kotlinx.coroutines.*
 @Ignore("Manual usage.")
 class CriScoreExperiment {
 
     private val counter = CriCounter(0, 127)
     private val calc = CriScore()
     private val downloads = Paths.get(System.getProperty("user.home")).resolve("Downloads/nexttext/wiki").toAbsolutePath()
-    val contentCache: LoadingCache<Path, String> = CacheBuilder.newBuilder()
+    private val contentCache: LoadingCache<Path, String> = CacheBuilder.newBuilder()
             .maximumSize(10000)
             .expireAfterWrite(10, TimeUnit.MINUTES)
             .build(
@@ -76,16 +78,9 @@ class CriScoreExperiment {
                 }
             }
         }
-        val scoresAmongPages = Array(allPages.size) { DoubleArray(allPages.size) { -1.0 } }
-        for (i in allPages.indices) {
-            println("Cross: $i")
-            val contentI = contentCache.get(lastRevision(allPages, i))
-            for (j in allPages.indices) {
-                val contentJ = contentCache.get(lastRevision(allPages, j))
-                val score = getScore(contentI, contentJ)
-                scoresAmongPages[i][j] = score
-            }
-        }
+
+        val scoresAmongPages = runBlocking{calculateCrossScores(allPages)}
+
         var goodValues = 0
         var badValues = 0
         for (i in allPages.indices) {
@@ -105,8 +100,41 @@ class CriScoreExperiment {
             }
         }
 
+        // Good: 482684588. Bad: 17306924. Ratio: 96.5385564385341%.
         println("Good: $goodValues. Bad: $badValues. Ratio: ${(goodValues.toDouble() * 100) / (goodValues + badValues)}%.")
 
+    }
+
+    private suspend fun calculateCrossScores(allPages: MutableList<Path>): Array<DoubleArray> {
+        val scoresAmongPages = Array(allPages.size) { DoubleArray(allPages.size) { -1.0 } }
+
+        val crossScoreResults = Lists.newLinkedList<Deferred<DoubleArray>>()
+        for (i in allPages.indices) {
+            println("Cross: $i")
+            val contentI = contentCache.get(lastRevision(allPages, i))
+            val crossScores = GlobalScope.async { crossScore(contentI, allPages) }
+            crossScoreResults.add(crossScores)
+        }
+        println("Collecting cross scoring results...")
+        for (i in crossScoreResults.indices) {
+            val deferred = crossScoreResults[i]
+            val crossScores = deferred.await()
+            println("Collected cross scores: $i.")
+            for (j in crossScores.indices) {
+                scoresAmongPages[i][j] = crossScores[j]
+            }
+        }
+        return scoresAmongPages
+    }
+
+    private fun crossScore(contentI: String, allPages: MutableList<Path>): DoubleArray {
+        val crossScores = DoubleArray(allPages.size) { -1.0 }
+        for (j in allPages.indices) {
+            val contentJ = contentCache.get(lastRevision(allPages, j))
+            val score = getScore(contentI, contentJ)
+            crossScores[j] = score
+        }
+        return crossScores
     }
 
     private fun lastRevision(allPages: MutableList<Path>, ix: Int) =

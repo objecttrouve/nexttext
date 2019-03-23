@@ -17,4 +17,6 @@ dependencies {
     testImplementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
     testImplementation("org.eclipse.persistence:eclipselink:2.7.4")
     testImplementation("com.google.guava:guava:27.1-jre")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
+
 }
