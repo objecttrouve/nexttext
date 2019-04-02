@@ -15,8 +15,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.*
+import org.apache.commons.csv.CSVFormat
+import org.apache.commons.csv.CSVPrinter
+import java.io.FileWriter
+
 @Ignore("Manual usage.")
-class CriScoreExperiment {
+class CriExperiment {
 
     private val counter = CriCounter(0, 127)
     private val calc = CriScore()
@@ -58,6 +62,32 @@ class CriScoreExperiment {
             }
         }
     }
+
+    @Test
+    fun writeCriCounts(){
+        val allPages = Files.list(downloads).collect(Collectors.toList())
+        for (i in allPages.indices) {
+            println("Article: $i")
+            val pageDir = allPages[i]
+            val pageTitle = pageDir.fileName
+            val revs = Files.list(pageDir).collect(Collectors.toList())
+            if (revs.size > 1) {
+                for (j in revs.indices) {
+                    println("Version: $i")
+                    val content = contentCache.get(revs[j].resolve(pageTitle))
+                    val criCounts = counter.criCounts(content)
+                    val revDir = pageDir.resolve(j.toString())
+                    val countsFile = revDir.resolve("cricounts.csv")
+                    val fileWriter = FileWriter(countsFile.toAbsolutePath().toFile())
+                    val headers = (0..criCounts.maxIntervalLength()).map{it.toString()}.toTypedArray()
+                    val csvPrinter = CSVPrinter(fileWriter, CSVFormat.DEFAULT.withHeader(*headers))
+                    criCounts.counts().forEach { csvPrinter.printRecord(*it.toTypedArray()) }
+                }
+            }
+        }
+    }
+
+
 
     @Test
     fun run() {
