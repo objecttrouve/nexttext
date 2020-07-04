@@ -3,7 +3,7 @@ package org.objecttrouve.nexttext
 import java.lang.Integer.max
 import java.util.*
 
-class CriCounter(
+internal class CriCounter(
         private val minCodePoint: Int = 0,
         private val maxCodePoint: Int = 127
 ) {
@@ -14,7 +14,8 @@ class CriCounter(
                     "The 'maxCodePoint' must be >= 'minCodePoint', was $maxCodePoint.")
         }
     }
-    fun criCounts(text: String): CriCounts {
+
+    internal fun criCounts(text: String): CriCounts {
         val nrOfSymbols = maxCodePoint - minCodePoint+1
         val lastPositions = IntArray(nrOfSymbols)
         val intervalsBySymbol = Array(nrOfSymbols) { LinkedList<Int>()}

@@ -23,7 +23,7 @@ import java.io.FileWriter
 class CriExperiment {
 
     private val counter = CriCounter(0, 127)
-    private val calc = CriScore()
+    private val calc = NormalizedCriDistance()
     private val downloads = Paths.get(System.getProperty("user.home")).resolve("Downloads/nexttext/wiki").toAbsolutePath()
     private val contentCache: LoadingCache<Path, String> = CacheBuilder.newBuilder()
             .maximumSize(10000)
@@ -82,6 +82,7 @@ class CriExperiment {
                     val headers = (0..criCounts.maxIntervalLength()).map{it.toString()}.toTypedArray()
                     val csvPrinter = CSVPrinter(fileWriter, CSVFormat.DEFAULT.withHeader(*headers))
                     criCounts.counts().forEach { csvPrinter.printRecord(*it.toTypedArray()) }
+                    println("Wrote "+ countsFile.toAbsolutePath())
                 }
             }
         }
@@ -130,7 +131,6 @@ class CriExperiment {
             }
         }
 
-        // Good: 482684588. Bad: 17306924. Ratio: 96.5385564385341%.
         println("Good: $goodValues. Bad: $badValues. Ratio: ${(goodValues.toDouble() * 100) / (goodValues + badValues)}%.")
 
     }
@@ -170,11 +170,11 @@ class CriExperiment {
     private fun lastRevision(allPages: MutableList<Path>, ix: Int) =
             allPages[ix].resolve("0").resolve(allPages[ix].fileName)
 
-    private fun read(path: Path?) = String(Files.readAllBytes(path))
+    private fun read(path: Path) = String(Files.readAllBytes(path))
 
     private fun getScore(text1: String, text2: String): Double {
         val criCountsJ = counter.criCounts(text1)
         val criCountsK = counter.criCounts(text2)
-        return calc.score(criCountsJ, criCountsK)
+        return calc.normalizedCriDistance(criCountsJ, criCountsK)
     }
 }

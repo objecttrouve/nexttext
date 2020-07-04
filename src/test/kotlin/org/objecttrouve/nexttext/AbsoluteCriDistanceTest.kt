@@ -4,15 +4,14 @@ import org.hamcrest.Matchers
 import org.junit.Assert.assertThat
 import kotlin.test.Test
 
-class CriDistanceTest {
-
+class AbsoluteCriDistanceTest {
 
 
     @Test fun distance__0_127__2_empty_Strings() {
         val criStuff = CriCounter()
         val criCounts1 = criStuff.criCounts("")
         val criCounts2 = criStuff.criCounts("")
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -24,7 +23,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(65, 65)
         val criCounts1 = criStuff.criCounts("")
         val criCounts2 = criStuff.criCounts("A")
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -35,7 +34,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts("")
         val criCounts2 = criStuff.criCounts("A")
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -46,7 +45,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts("")
         val criCounts2 = criStuff.criCounts("AB")
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -57,12 +56,80 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts("AB")
         val criCounts2 = criStuff.criCounts("AB")
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
         assertThat(distance, Matchers.`is`(0))
     }
+
+    @Test fun distance__0_127__A__B() {
+        val criStuff = CriCounter(0, 127)
+        val criCounts1 = criStuff.criCounts("A")
+        val criCounts2 = criStuff.criCounts("B")
+        val calc = AbsoluteCriDistance()
+
+        val distance = calc.distance(criCounts1, criCounts2)
+
+        assertThat(distance, Matchers.`is`(2))
+    }
+
+
+    @Test fun distance__0_127__AB__BA() {
+        val criStuff = CriCounter(0, 127)
+        val criCounts1 = criStuff.criCounts("AB")
+        val criCounts2 = criStuff.criCounts("BA")
+        val calc = AbsoluteCriDistance()
+
+        val distance = calc.distance(criCounts1, criCounts2)
+
+        assertThat(distance, Matchers.`is`(4))
+    }
+
+    @Test fun distance__0_127__ABBA__BABA() {
+        val criStuff = CriCounter(0, 127)
+        val criCounts1 = criStuff.criCounts("ABBA")
+        val criCounts2 = criStuff.criCounts("BABA")
+        val calc = AbsoluteCriDistance()
+
+        val distance = calc.distance(criCounts1, criCounts2)
+
+        assertThat(distance, Matchers.`is`(8))
+    }
+
+    @Test fun distance__0_127__ABBA_BABA__BABA_ABBA() {
+        val criStuff = CriCounter(0, 127)
+        val criCounts1 = criStuff.criCounts("ABBA BABA")
+        val criCounts2 = criStuff.criCounts("BABA ABBA")
+        val calc = AbsoluteCriDistance()
+
+        val distance = calc.distance(criCounts1, criCounts2)
+
+        assertThat(distance, Matchers.`is`(8))
+    }
+
+    @Test fun distance__0_127__BAB__AABAB() {
+        val criStuff = CriCounter(0, 127)
+        val criCounts1 = criStuff.criCounts("BAB")
+        val criCounts2 = criStuff.criCounts("AABAB")
+        val calc = AbsoluteCriDistance()
+
+        val distance = calc.distance(criCounts1, criCounts2)
+
+        assertThat(distance, Matchers.`is`(4))
+    }
+
+    @Test fun distance__0_127__BAB__BABAA() {
+        val criStuff = CriCounter(0, 127)
+        val criCounts1 = criStuff.criCounts("BAB")
+        val criCounts2 = criStuff.criCounts("BABAA")
+        val calc = AbsoluteCriDistance()
+
+        val distance = calc.distance(criCounts1, criCounts2)
+
+        assertThat(distance, Matchers.`is`(2))
+    }
+
 
     private val text1 = "This is a text."
     private val text2 = "This is a longer text."
@@ -71,7 +138,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(text1)
         val criCounts2 = criStuff.criCounts(text2)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -84,7 +151,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(text1)
         val criCounts2 = criStuff.criCounts(text3)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -99,7 +166,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(text4)
         val criCounts2 = criStuff.criCounts(text4)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -119,7 +186,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(text4)
         val criCounts2 = criStuff.criCounts(text5)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -139,7 +206,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(text5)
         val criCounts2 = criStuff.criCounts(text6)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -161,7 +228,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(text5)
         val criCounts2 = criStuff.criCounts(text6)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -182,7 +249,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(text7)
         val criCounts2 = criStuff.criCounts(text8)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -193,7 +260,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(text8)
         val criCounts2 = criStuff.criCounts(Doc.text9)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -204,7 +271,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(Doc.text9)
         val criCounts2 = criStuff.criCounts(Doc.text10)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -215,7 +282,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(Doc.text9)
         val criCounts2 = criStuff.criCounts(Doc.text11)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -226,7 +293,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(Doc.text9)
         val criCounts2 = criStuff.criCounts(Doc.text12)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -237,7 +304,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(Doc.text9)
         val criCounts2 = criStuff.criCounts(Doc.text13)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 
@@ -248,7 +315,7 @@ class CriDistanceTest {
         val criStuff = CriCounter(0, 127)
         val criCounts1 = criStuff.criCounts(Doc.text13)
         val criCounts2 = criStuff.criCounts(Doc.text14)
-        val calc = CriDistance()
+        val calc = AbsoluteCriDistance()
 
         val distance = calc.distance(criCounts1, criCounts2)
 

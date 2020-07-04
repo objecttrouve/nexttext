@@ -1,7 +1,7 @@
 package org.objecttrouve.nexttext
 
 import com.bitplan.mediawiki.japi.Mediawiki
-import com.bitplan.mediawiki.japi.api.Page
+
 import com.bitplan.mediawiki.japi.api.Rev
 import org.apache.commons.lang3.StringUtils
 import java.util.*

@@ -87,6 +87,71 @@ class CriCounterTest {
     }
 
     @Test
+    fun criCounts__codePointRange_65_to_67__and__an_AA() {
+        val criStuff = CriCounter(65, 67)
+
+        val criCounts = criStuff.criCounts("AA")
+
+        val aBunchOfCriCounts = aBunchOfCriCounts()
+                .withItems(intArrayOf(1, 1))
+                .withItems(intArrayOf(0, 0))
+                .withItems(intArrayOf(0, 0))
+        assertThat(criCounts, `is`(Matching.aCriCounts().with(counts, aBunchOfCriCounts.ofSize(3).exactly().ordered())))
+    }
+
+    @Test
+    fun criCounts__codePointRange_65_to_67__and__an_AAA() {
+        val criStuff = CriCounter(65, 67)
+
+        val criCounts = criStuff.criCounts("AAA")
+
+        val aBunchOfCriCounts = aBunchOfCriCounts()
+                .withItems(intArrayOf(1, 2))
+                .withItems(intArrayOf(0, 0))
+                .withItems(intArrayOf(0, 0))
+        assertThat(criCounts, `is`(Matching.aCriCounts().with(counts, aBunchOfCriCounts.ofSize(3).exactly().ordered())))
+    }
+
+    @Test
+    fun criCounts__codePointRange_65_to_67__and__an_AAAA() {
+        val criStuff = CriCounter(65, 67)
+
+        val criCounts = criStuff.criCounts("AAAA")
+
+        val aBunchOfCriCounts = aBunchOfCriCounts()
+                .withItems(intArrayOf(1, 3))
+                .withItems(intArrayOf(0, 0))
+                .withItems(intArrayOf(0, 0))
+        assertThat(criCounts, `is`(Matching.aCriCounts().with(counts, aBunchOfCriCounts.ofSize(3).exactly().ordered())))
+    }
+
+    @Test
+    fun criCounts__codePointRange_65_to_67__and__ABBA() {
+        val criStuff = CriCounter(65, 67)
+
+        val criCounts = criStuff.criCounts("ABBA")
+
+        val aBunchOfCriCounts = aBunchOfCriCounts()
+                .withItems(intArrayOf(1, 0, 0, 1))
+                .withItems(intArrayOf(0, 2, 0, 0))
+                .withItems(intArrayOf(0, 0, 0, 0))
+        assertThat(criCounts, `is`(Matching.aCriCounts().with(counts, aBunchOfCriCounts.ofSize(3).exactly().ordered())))
+    }
+
+    @Test
+    fun criCounts__codePointRange_65_to_67__and__BABA() {
+        val criStuff = CriCounter(65, 67)
+
+        val criCounts = criStuff.criCounts("BABA")
+
+        val aBunchOfCriCounts = aBunchOfCriCounts()
+                .withItems(intArrayOf(0, 1, 1))
+                .withItems(intArrayOf(1, 0, 1))
+                .withItems(intArrayOf(0, 0, 0))
+        assertThat(criCounts, `is`(Matching.aCriCounts().with(counts, aBunchOfCriCounts.ofSize(3).exactly().ordered())))
+    }
+
+    @Test
     fun criCounts__codePointRange_65_to_67__and__an_ABC() {
         val criStuff = CriCounter(65, 67)
 

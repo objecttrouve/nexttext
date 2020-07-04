@@ -9,12 +9,12 @@ import java.util.*
 
 object Matching {
 
-    val counts: Attribute<CriCounts, List<IntArray>> = Attribute.attribute("CRI counts") { criCounts -> criCounts.counts().toList()}
+    internal val counts: Attribute<CriCounts, List<IntArray>> = Attribute.attribute("CRI counts") { criCounts -> criCounts.counts().toList() }
     private val an = ConvenientMatchers.customized()
             .withStringifiers(StringifiersConfig.stringifiers()
-                    .withShortStringifier(IntArray::class.java) { intArray -> Arrays.toString(intArray)})
+                    .withShortStringifier(IntArray::class.java) { intArray -> Arrays.toString(intArray) })
             .build()
 
-    fun aBunchOfCriCounts(): FluentIterableMatcher<IntArray, Iterable<IntArray>> = an.iterableOf(IntArray::class.java)
-    fun aCriCounts(): FluentAttributeMatcher<CriCounts> = an.instanceOf(CriCounts::class.java)
+    internal fun aBunchOfCriCounts(): FluentIterableMatcher<IntArray, Iterable<IntArray>> = an.iterableOf(IntArray::class.java)
+    internal fun aCriCounts(): FluentAttributeMatcher<CriCounts> = an.instanceOf(CriCounts::class.java)
 }
