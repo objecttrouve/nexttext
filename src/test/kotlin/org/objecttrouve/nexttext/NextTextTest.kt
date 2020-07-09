@@ -1,15 +1,9 @@
 package org.objecttrouve.nexttext
 
-import org.hamcrest.Matchers.*
-import org.junit.Assert
+
+import org.hamcrest.Matchers.`is`
+import org.junit.Assert.assertThat
 import kotlin.test.Test
-import kotlin.test.assertTrue
-import org.junit.Assert.assertThat
-import org.junit.Assert.assertThat
-
-
-import org.junit.Assert.assertThat
-import org.junit.Assert.assertThat
 
 class NextTextTest {
 

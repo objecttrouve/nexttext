@@ -1,15 +1,11 @@
 package org.objecttrouve.nexttext
 
-class Config {
-
-}
-
 class NextText private constructor (
-        val criCounter: CriCounter
+        private val criCounter: CriCounter
 ){
     data class Builder(
-            var minCodePoint : Int = 0,
-            var maxCodePoint: Int = 127) {
+            private var minCodePoint : Int = 0,
+            private var maxCodePoint: Int = 127) {
 
         fun withMinCodePoint(minCodePoint: Int) = apply {this.minCodePoint =  minCodePoint}
         fun withMaxCodePoint(maxCodePoint: Int) = apply {this.maxCodePoint =  maxCodePoint}
