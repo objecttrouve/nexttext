@@ -1,5 +1,8 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
 plugins {
     id("org.jetbrains.kotlin.jvm").version("1.3.20")
+    id("org.jetbrains.dokka").version("0.10.1")
 }
 
 repositories {
@@ -20,4 +23,11 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
     testImplementation("org.apache.commons:commons-csv:1.6")
 
+}
+
+tasks {
+    val dokka by getting(DokkaTask::class) {
+        outputFormat = "html"
+        outputDirectory = "$buildDir/dokka"
+    }
 }
