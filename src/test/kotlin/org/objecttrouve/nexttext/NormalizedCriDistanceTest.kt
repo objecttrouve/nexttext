@@ -3,7 +3,10 @@ package org.objecttrouve.nexttext
 import org.junit.Ignore
 import org.junit.Test
 import org.hamcrest.Matchers
+import org.hamcrest.number.IsCloseTo
+import org.hamcrest.number.IsCloseTo.closeTo
 import org.junit.Assert
+import org.junit.Assert.assertThat
 import org.objecttrouve.testing.matchers.ConvenientMatchers
 
 @Ignore("Manual usage.")
@@ -22,7 +25,7 @@ class NormalizedCriDistanceTest {
 
         val score = scorer.normalizedCriDistance(c1, c2)
 
-        Assert.assertThat(score, Matchers.`is`(Double.NaN))
+        assertThat(score, Matchers.`is`(Double.NaN))
     }
 
     @Test
@@ -34,7 +37,7 @@ class NormalizedCriDistanceTest {
 
         val score = scorer.normalizedCriDistance(c1, c2)
 
-        Assert.assertThat(score, Matchers.`is`(0.0))
+        assertThat(score, Matchers.`is`(0.0))
     }
 
     @Test
@@ -46,7 +49,7 @@ class NormalizedCriDistanceTest {
 
         val score = scorer.normalizedCriDistance(c1, c2)
 
-        Assert.assertThat(score, Matchers.`is`(1.0))
+        assertThat(score, Matchers.`is`(1.0))
     }
 
     @Test
@@ -58,7 +61,7 @@ class NormalizedCriDistanceTest {
 
         val score = scorer.normalizedCriDistance(c1, c2)
 
-        Assert.assertThat(score, Matchers.`is`(1.0))
+        assertThat(score, Matchers.`is`(1.0))
     }
 
     @Test
@@ -70,7 +73,7 @@ class NormalizedCriDistanceTest {
 
         val score = scorer.normalizedCriDistance(c1, c2)
 
-        Assert.assertThat(score, Matchers.`is`(1.0))
+        assertThat(score, Matchers.`is`(1.0))
     }
 
     @Test
@@ -82,7 +85,7 @@ class NormalizedCriDistanceTest {
 
         val score = scorer.normalizedCriDistance(c1, c2)
 
-        Assert.assertThat(score, Matchers.`is`(1.0))
+        assertThat(score, Matchers.`is`(1.0))
     }
 
     @Test
@@ -94,7 +97,7 @@ class NormalizedCriDistanceTest {
 
         val score = scorer.normalizedCriDistance(c1, c2)
 
-        Assert.assertThat(score, Matchers.`is`(1.0))
+        assertThat(score, Matchers.`is`(1.0))
     }
 
     @Test
@@ -106,7 +109,7 @@ class NormalizedCriDistanceTest {
 
         val score = scorer.normalizedCriDistance(c1, c2)
 
-        Assert.assertThat(score, Matchers.`is`(0.5))
+        assertThat(score, Matchers.`is`(0.5))
     }
 
     @Test
@@ -118,7 +121,7 @@ class NormalizedCriDistanceTest {
 
         val score = scorer.normalizedCriDistance(c1, c2)
 
-        Assert.assertThat(score, Matchers.`is`(1.0))
+        assertThat(score, Matchers.`is`(1.0))
     }
 
     @Test
@@ -130,9 +133,32 @@ class NormalizedCriDistanceTest {
 
         val score = scorer.normalizedCriDistance(c1, c2)
 
-        Assert.assertThat(score, Matchers.`is`(1.0))
+        assertThat(score, Matchers.`is`(1.0))
     }
 
+    @Test
+    fun normalizedCriDistance__examples_1() {
+        val text1 = "Text here! With e's repeating..."
+        val text2 = "Text here! With e's repeating... But much much much much much much longer!! Really! Shouldn't the length difference really make more difference?"
+        val c1 = counter.criCounts(text1)
+        val c2 = counter.criCounts(text2)
+
+        val score = scorer.normalizedCriDistance(c1, c2)
+
+        assertThat(score, closeTo(0.64, 0.01))
+    }
+
+    @Test
+    fun normalizedCriDistance__examples_2() {
+        val text1 = "Text here! With e's repeating..."
+        val text2 = "Not much in common, at all."
+        val c1 = counter.criCounts(text1)
+        val c2 = counter.criCounts(text2)
+
+        val score = scorer.normalizedCriDistance(c1, c2)
+
+        assertThat(score, closeTo(0.96, 0.01))
+    }
 
 
     @Test
@@ -152,7 +178,7 @@ class NormalizedCriDistanceTest {
 
         candidates.sortWith(compareBy {scorer.normalizedCriDistance(c1, counter.criCounts(it))})
 
-        Assert.assertThat(candidates, Matchers.`is`(ConvenientMatchers.anIterableOf(String::class.java)
+        assertThat(candidates, Matchers.`is`(ConvenientMatchers.anIterableOf(String::class.java)
                 .exactly()
                 .ordered()
                 .withItems(
