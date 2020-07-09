@@ -10,26 +10,15 @@ Experimental library for a simple text similarity measure.
 The CRI distance is a measure for superficial text similarity. "CRI" stands for **c**haracter **r**epetition **i**ntervals. 
 The idea behind it is to gauge a text by capturing the numbers of symbols it takes for each character to repeat. 
 
-### Example
+The normalized CRI distance of two texts is a value between 0 and 1, where 0 means the texts are identical and 0 means they have nothing in common at all. 
+
+### Theory
+#### By Example
 
 Given an alphabet consisting of the letters "a" and "b". Let's index them with 0 and 1.
 Let's define an "interval" simply as the difference between the character indexes in the string. 
 The length of the first interval is the position of the respective character. 
 Because it takes that many symbols until the character "repeats" for the first time.
-
-More formally: 
-
-Let _s<sub>i<sub>_ be a unique symbol where _0 &le; i &le; n_ .
-
-Let _A_ be an alphabet of _n_ symbols:<br>_A_ = {_s<sub>0<sub>_, ... _s<sub>n</sub>_}
-
-Let _S_ be a sequence of length _l_ of symbols from _A_.
-
-Let _j_,_k_ (_0&le;j<;k_, _k&le;m_) be the positions of two occurrences of _s<sub>i<sub>_ in _S_ where no other occurrence of _s<sub>i<sub>_ intervenes.
-
-Then a CRI interval is just the difference between the positions: <br><i>CRI<sub>i,j,k</sub>  = (j..k] = k - j</i>
-
-For the _first_ occurrence of _s<sub>i<sub>_ we define _j=0_ and set _k_ to the position of the first occurrence, thus allowing _j&le;k_.
 
 So much for the interval.
 
@@ -38,7 +27,7 @@ It takes 0 positions to increment for the "a" to appear for the first time and o
 From the first "b" to the second "b", the position increments by one, so the interval is one. 
 From the first "a" to the next, the position increments by 3.
 
-Now, let's put this in a matrix where the first dimension is the alphabet indexes and the second are the frequencies (counts) of the respective repetition intervals (CRI): 
+Now, let's put this in a matrix where the first dimension is the alphabet indexes and the second are the frequencies (counts) of the respective repetition interval (CRI) lengths: 
 
 String "abba":
 <table>
@@ -49,7 +38,7 @@ String "abba":
 CRI counts of "abba":
 <table>
     <tr>
-        <td>&#x2b10; Symbol / CRI &#x2192;</td><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td><td><b>3</b></td>
+        <td>&#x2b10; Symbol / CRI length &#x2192;</td><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td><td><b>3</b></td>
     </tr>
     <tr>
         <td><b>0</b> ("a")</td> <td>1</td> <td>0</td> <td>0</td> <td>1</td>
@@ -70,7 +59,7 @@ String "baba":
 CRI counts of "baba":
 <table>
     <tr>
-        <td>&#x2b10; Symbol / CRI &#x2192;</td><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td><td><b>3</b></td>
+        <td>&#x2b10; Symbol / CRI length &#x2192;</td><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td><td><b>3</b></td>
     </tr>
     <tr>
         <td><b>0</b> ("a")</td> <td>0</td> <td>1</td> <td>1</td> <td>0</td>
@@ -81,9 +70,6 @@ CRI counts of "baba":
 </table>
 <br>
 
-Formally: 
-
-
 Now, let's calculate a naïve distance between those two matrixes simply by adding up the absolute differences between the individual cell values.
 
 The distance between "abba" and "baba" is 8.
@@ -92,6 +78,38 @@ Let's compare the strings "abbababa" and "babaabba" in the same way. The two str
 The distance is still 8.
 
 The algorithm honors identical subsequences that can appear in different orders and in different locations. 
+
+Finally, it would be nice to have a normalized value which is easier to interpret than the raw distance. 
+We divide the distance by the sum of the two text's lengths and we get a result between 0 and 1, 0 meaning identical and 1 meaning nothing in common at all.
+
+#### More Formally
+
+Let _s<sub>i<sub>_ be a unique symbol where _0 &le; i &le; n_ .
+
+Let _A_ be an alphabet of _n_ symbols:<br>_A_ = {_s<sub>0<sub>_, ... _s<sub>n</sub>_}
+
+Let _S_ be a sequence of length _L_ of symbols from _A_.
+
+Let _j_,_k_ (_0&le;j<;k_, _k&lt;L_) be the positions of two occurrences of _s<sub>i<sub>_ in _S_ where no other occurrence of _s<sub>i<sub>_ intervenes.
+
+Then a CRI interval is just the range of positions from _j_ to _k_, not including _k_: <br><i>CRI<sub>i,j,k</sub>  = [j..k)</i>
+
+For the _first_ occurrence of _s<sub>i<sub>_ we define _j=0_ and set _k_ to the position of the first occurrence of _s<sub>i<sub>_ (_j&le;k_).
+
+The length <i>l<sub>k,j</sub></i> of the _CRI_ is <i>k - j</i>.
+
+The CRI count <i>c<sub>i,l</sub></i> is the count of all repetition intervals of <i>s<sub>i<sub></i> of length _l_.
+
+Let <i>M<sub>1</sub><sup>i⨯l</sup></i> be a matrix of CRI counts _c_ of _S<sub>1<sub>_ by symbol index _i_ and CRI length _l_.
+
+Let <i>M<sub>2</sub><sup>i⨯l</sup></i> be a matrix of CRI counts _c_ of _S<sub>2<sub>_ by symbol index _i_ and CRI length _l_.
+
+Let <i>M<sub>diff</sub></i> be the subtraction of the two matrixes: <i>M<sub>diff</sub> = M<sub>1</sub> - M<sub>2</sub></i>
+
+Then the absolute CRI distance _D_ is just the sum over the elements _d_ of <i>M<sub>diff</sub></i>: <i>D = &#x2211;d<sub>i,l</sub></i>
+
+The normalized CRI distance is _D/(L<sub>1</sub>+L<sub>2</sub>)_.
+
 
 
 ## Disclaimer
