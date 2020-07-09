@@ -1,7 +1,8 @@
 package org.objecttrouve.nexttext
 
 
-import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.*
+import org.hamcrest.number.IsCloseTo.closeTo
 import org.junit.Assert.assertThat
 import kotlin.test.Test
 
@@ -75,5 +76,62 @@ class NextTextTest {
         val criDistance = nextText.criDistance(text1, text2)
 
         assertThat(criDistance, `is`(0.0))
+    }
+
+    @Test fun criDistance__emojis_1() {
+        val minCodePoint = "\u1f600".codePoints().min().orElseGet {-1}
+        val maxCodePoint = "\ue007f".codePoints().max().orElseGet {-1}
+        assertThat(minCodePoint, greaterThanOrEqualTo(0))
+        assertThat(maxCodePoint, greaterThanOrEqualTo(0))
+        assertThat(maxCodePoint, greaterThan(minCodePoint))
+
+        val nextText = NextText.Builder()
+                .withMinCodePoint(minCodePoint)
+                .withMaxCodePoint(maxCodePoint)
+                .build()
+        val text1 = "\u1f601\u1f970\u1f601"
+        val text2 = "\u1f601\u2622\u1f51e\u1f601"
+
+        val criDistance = nextText.criDistance(text1, text2)
+
+        assertThat(criDistance, closeTo(0.692, 0.001))
+    }
+
+    @Test fun criDistance__emojis_2() {
+        val minCodePoint = "\u1f600".codePoints().min().orElseGet {-1}
+        val maxCodePoint = "\ue007f".codePoints().max().orElseGet {-1}
+        assertThat(minCodePoint, greaterThanOrEqualTo(0))
+        assertThat(maxCodePoint, greaterThanOrEqualTo(0))
+        assertThat(maxCodePoint, greaterThan(minCodePoint))
+
+        val nextText = NextText.Builder()
+                .withMinCodePoint(minCodePoint)
+                .withMaxCodePoint(maxCodePoint)
+                .build()
+        val text1 = "\u1f601\u1f970\u1f601"
+        val text2 = "\u1f601\u1f970\u1f601"
+
+        val criDistance = nextText.criDistance(text1, text2)
+
+        assertThat(criDistance, `is`(0.0))
+    }
+
+    @Test fun criDistance__emojis_3() {
+        val minCodePoint = "\u1f600".codePoints().min().orElseGet {-1}
+        val maxCodePoint = "\ue007f".codePoints().max().orElseGet {-1}
+        assertThat(minCodePoint, greaterThanOrEqualTo(0))
+        assertThat(maxCodePoint, greaterThanOrEqualTo(0))
+        assertThat(maxCodePoint, greaterThan(minCodePoint))
+
+        val nextText = NextText.Builder()
+                .withMinCodePoint(minCodePoint)
+                .withMaxCodePoint(maxCodePoint)
+                .build()
+        val text1 = "\u1f601\u1f970\u1f601\u1f970"
+        val text2 = "\u1f601\u1f970\u1f970\u1f601"
+
+        val criDistance = nextText.criDistance(text1, text2)
+
+        assertThat(criDistance, `is`(0.5))
     }
 }
