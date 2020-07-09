@@ -134,4 +134,12 @@ class NextTextTest {
 
         assertThat(criDistance, `is`(0.5))
     }
+
+    @Test(expected = IllegalArgumentException::class) fun Builder__withMinCodePoint__negative_input() {
+        NextText.Builder().withMinCodePoint(-1)
+    }
+
+    @Test(expected = IllegalArgumentException::class) fun Builder__withMaxCodePoint__negative_input() {
+        NextText.Builder().withMaxCodePoint(-1)
+    }
 }

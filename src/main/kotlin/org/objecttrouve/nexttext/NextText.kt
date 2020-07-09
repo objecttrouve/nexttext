@@ -7,8 +7,15 @@ class NextText private constructor (
             private var minCodePoint : Int = 0,
             private var maxCodePoint: Int = 127) {
 
-        fun withMinCodePoint(minCodePoint: Int) = apply {this.minCodePoint =  minCodePoint}
-        fun withMaxCodePoint(maxCodePoint: Int) = apply {this.maxCodePoint =  maxCodePoint}
+        fun withMinCodePoint(minCodePoint: Int) = apply { this.minCodePoint =  posInt(minCodePoint) }
+        fun withMaxCodePoint(maxCodePoint: Int) = apply { this.maxCodePoint =  posInt(maxCodePoint) }
+
+        private fun posInt(intParam: Int): Int {
+            require(intParam >= 0) {
+                "Parameter must be a positive integer."
+            }
+            return intParam
+        }
 
         fun build() = NextText(CriCounter(minCodePoint, maxCodePoint))
     }
