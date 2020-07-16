@@ -2,8 +2,7 @@ package org.objecttrouve.nexttext
 /**
  * CRI distance calculator.
  *
- * Configurable with a range of code points [`minCodePoint`..`maxCodePoint`].
- * Only code points within that range are considered.
+ * Configurable with a range of code points that define the set of characters whose repetitions are counted.
  */
 class NextText private constructor (
         private val criCounter: CriCounter
@@ -17,7 +16,7 @@ class NextText private constructor (
             private var maxCodePoint: Int = 127) {
 
         /**
-         * Sets the lower bound on the range of code points to operate on (inclusice).
+         * Sets the lower bound on the range of code points to operate on (inclusive).
          *
          * Defaults to 0.
          *
@@ -26,7 +25,7 @@ class NextText private constructor (
         fun withMinCodePoint(minCodePoint: Int) = apply { this.minCodePoint =  posInt(minCodePoint) }
 
         /**
-         * Sets the upper bound on the range of code points to operate on (inclusice).
+         * Sets the upper bound on the range of code points to operate on (inclusive).
          *
          * Defaults to 127.
          *
