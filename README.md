@@ -110,8 +110,19 @@ Then the absolute CRI distance _D_ is just the sum over the elements _d_ of <i>M
 
 The normalized CRI distance is _D/(L<sub>1</sub>+L<sub>2</sub>)_.
 
-
-
-## Disclaimer
+### Disclaimer
 
 I have no idea whether this algorithm has any academic discourse. I'm basically implementing it as an incentive to learn Kotlin.
+
+## Usage
+
+```
+        val nextText = NextText.Builder()
+                .withMinCodePoint(0)
+                .withMaxCodePoint(127)
+                .build()
+
+        val criDistance = nextText.criDistance("text 1", "text 2")
+
+        println("The normalized CRI distance is $criDistance.")
+```
