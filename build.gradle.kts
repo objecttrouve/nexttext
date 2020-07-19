@@ -3,6 +3,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     id("org.jetbrains.kotlin.jvm").version("1.3.20")
     id("org.jetbrains.dokka").version("0.10.1")
+    id("me.champeau.gradle.jmh").version("0.5.0")
 }
 
 repositories {
@@ -25,9 +26,15 @@ dependencies {
 
 }
 
+jmh {
+    isIncludeTests = false
+}
+
 tasks {
     val dokka by getting(DokkaTask::class) {
         outputFormat = "html"
         outputDirectory = "$buildDir/dokka"
     }
+
 }
+
