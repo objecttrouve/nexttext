@@ -1,0 +1,85 @@
+Benchmark                                              Mode       Cnt      Score     Error  Units
+NextBenchmark.bench__l4                               thrpt       500  17300.404 ± 159.112  ops/s
+NextBenchmark.bench__l4__x16                          thrpt       500  13031.007 ±  79.808  ops/s
+NextBenchmark.bench__l4__x2                           thrpt       500  17298.896 ± 147.247  ops/s
+NextBenchmark.bench__l4__x32                          thrpt       500   8966.628 ±  71.841  ops/s
+NextBenchmark.bench__l4__x4                           thrpt       500  17061.075 ± 126.217  ops/s
+NextBenchmark.bench__l4__x64                          thrpt       500   4176.491 ±   2.756  ops/s
+NextBenchmark.bench__l4__x8                           thrpt       500  13857.364 ± 343.822  ops/s
+NextBenchmark.bench__l4                                avgt       500     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x16                           avgt       500     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x2                            avgt       500     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x32                           avgt       500     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x4                            avgt       500     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x64                           avgt       500     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x8                            avgt       500     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4                              sample  84846270     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4:bench__l4·p0.00              sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4:bench__l4·p0.50              sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4:bench__l4·p0.90              sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4:bench__l4·p0.95              sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4:bench__l4·p0.99              sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4:bench__l4·p0.999             sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4:bench__l4·p0.9999            sample                0.001             s/op
+NextBenchmark.bench__l4:bench__l4·p1.00              sample                0.014             s/op
+NextBenchmark.bench__l4__x16                         sample  62026183     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x16:bench__l4__x16·p0.00    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x16:bench__l4__x16·p0.50    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x16:bench__l4__x16·p0.90    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x16:bench__l4__x16·p0.95    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x16:bench__l4__x16·p0.99    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x16:bench__l4__x16·p0.999   sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x16:bench__l4__x16·p0.9999  sample                0.001             s/op
+NextBenchmark.bench__l4__x16:bench__l4__x16·p1.00    sample                0.013             s/op
+NextBenchmark.bench__l4__x2                          sample  82177267     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x2:bench__l4__x2·p0.00      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x2:bench__l4__x2·p0.50      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x2:bench__l4__x2·p0.90      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x2:bench__l4__x2·p0.95      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x2:bench__l4__x2·p0.99      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x2:bench__l4__x2·p0.999     sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x2:bench__l4__x2·p0.9999    sample                0.001             s/op
+NextBenchmark.bench__l4__x2:bench__l4__x2·p1.00      sample                0.025             s/op
+NextBenchmark.bench__l4__x32                         sample  42506292     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x32:bench__l4__x32·p0.00    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x32:bench__l4__x32·p0.50    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x32:bench__l4__x32·p0.90    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x32:bench__l4__x32·p0.95    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x32:bench__l4__x32·p0.99    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x32:bench__l4__x32·p0.999   sample                0.001             s/op
+NextBenchmark.bench__l4__x32:bench__l4__x32·p0.9999  sample                0.002             s/op
+NextBenchmark.bench__l4__x32:bench__l4__x32·p1.00    sample                0.010             s/op
+NextBenchmark.bench__l4__x4                          sample  78800999     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x4:bench__l4__x4·p0.00      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x4:bench__l4__x4·p0.50      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x4:bench__l4__x4·p0.90      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x4:bench__l4__x4·p0.95      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x4:bench__l4__x4·p0.99      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x4:bench__l4__x4·p0.999     sample               ≈ 10⁻³             s/op
+NextBenchmark.bench__l4__x4:bench__l4__x4·p0.9999    sample                0.001             s/op
+NextBenchmark.bench__l4__x4:bench__l4__x4·p1.00      sample                1.376             s/op
+NextBenchmark.bench__l4__x64                         sample  20540737     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x64:bench__l4__x64·p0.00    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x64:bench__l4__x64·p0.50    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x64:bench__l4__x64·p0.90    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x64:bench__l4__x64·p0.95    sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x64:bench__l4__x64·p0.99    sample               ≈ 10⁻³             s/op
+NextBenchmark.bench__l4__x64:bench__l4__x64·p0.999   sample                0.001             s/op
+NextBenchmark.bench__l4__x64:bench__l4__x64·p0.9999  sample                0.002             s/op
+NextBenchmark.bench__l4__x64:bench__l4__x64·p1.00    sample                0.010             s/op
+NextBenchmark.bench__l4__x8                          sample  70491643     ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x8:bench__l4__x8·p0.00      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x8:bench__l4__x8·p0.50      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x8:bench__l4__x8·p0.90      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x8:bench__l4__x8·p0.95      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x8:bench__l4__x8·p0.99      sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x8:bench__l4__x8·p0.999     sample               ≈ 10⁻⁴             s/op
+NextBenchmark.bench__l4__x8:bench__l4__x8·p0.9999    sample                0.001             s/op
+NextBenchmark.bench__l4__x8:bench__l4__x8·p1.00      sample                0.014             s/op
+NextBenchmark.bench__l4                                  ss       500     ≈ 10⁻³             s/op
+NextBenchmark.bench__l4__x16                             ss       500     ≈ 10⁻³             s/op
+NextBenchmark.bench__l4__x2                              ss       500     ≈ 10⁻³             s/op
+NextBenchmark.bench__l4__x32                             ss       500      0.001 ±   0.001   s/op
+NextBenchmark.bench__l4__x4                              ss       500     ≈ 10⁻³             s/op
+NextBenchmark.bench__l4__x64                             ss       500      0.001 ±   0.001   s/op
+NextBenchmark.bench__l4__x8                              ss       500     ≈ 10⁻³             s/op
