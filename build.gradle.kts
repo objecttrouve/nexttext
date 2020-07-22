@@ -24,6 +24,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
     testImplementation("org.apache.commons:commons-csv:1.6")
 
+    jmh("com.google.guava:guava:27.1-jre")
 }
 
 jmh {
