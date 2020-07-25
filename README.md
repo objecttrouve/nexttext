@@ -112,7 +112,13 @@ The normalized CRI distance is _D/(L<sub>1</sub>+L<sub>2</sub>)_.
 
 ### Disclaimer
 
-I have no idea whether this algorithm has any academic discourse. I'm basically implementing it as an incentive to learn Kotlin.
+I have no idea whether this algorithm has any academic or whatsoever discourse. 
+Didn't find it among the top 10 on Google. (Or googled the wrong buzzwords.) And didn't bother to do any research on the field. 
+(Actually, I was just thinking about a pragmatic solution for an imminent task.)
+Giving the algorithm is so trivial, I'm sure it already exists. Or otherwise it's just crap.
+I'm implementing it anyway as a nice playground to learn Kotlin.
+
+So, forgive me and let me know if I plagiarized.
 
 ## Usage
 
