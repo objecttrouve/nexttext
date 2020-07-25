@@ -34,10 +34,33 @@ jmh {
 }
 
 tasks {
+
+    val sourcesJar by creating(Jar::class) {
+        archiveClassifier.set("sources")
+        from(sourceSets.main.get().allSource)
+    }
+
     val dokka by getting(DokkaTask::class) {
         outputFormat = "html"
         outputDirectory = "$buildDir/dokka"
+
     }
 
+    val dokkaJar by creating(Jar::class) {
+        group = JavaBasePlugin.DOCUMENTATION_GROUP
+        description = "Assembles Kotlin docs with Dokka."
+        archiveClassifier.set("javadoc")
+        exclude("nexttext/org.objecttrouve.nexttext.benchmarks/**")
+        from(dokka)
+        dependsOn(dokka)
+    }
+
+    artifacts {
+        archives(sourcesJar)
+        archives(jar)
+        archives(dokkaJar)
+    }
 }
+
+
 
