@@ -5,14 +5,13 @@ import org.apache.commons.io.IOUtils;
 import org.objecttrouve.nexttext.NextText;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
-import org.openjdk.jmh.util.FileUtils;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 
+@SuppressWarnings("unused")
 @BenchmarkMode(Mode.AverageTime)
 @Warmup(iterations = 10)
 @Measurement(iterations = 100, batchSize = 10)

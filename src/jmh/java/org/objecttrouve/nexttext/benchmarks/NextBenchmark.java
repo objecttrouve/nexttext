@@ -4,6 +4,7 @@ import org.objecttrouve.nexttext.NextText;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 
+@SuppressWarnings("unused")
 @BenchmarkMode(Mode.All)
 @Warmup(iterations = 10)
 @Measurement(iterations = 100, batchSize = 10)
