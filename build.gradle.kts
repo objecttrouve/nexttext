@@ -25,6 +25,8 @@ dependencies {
     testImplementation("org.apache.commons:commons-csv:1.6")
 
     jmh("com.google.guava:guava:27.1-jre")
+    jmh("commons-io:commons-io:2.7")
+
 }
 
 jmh {

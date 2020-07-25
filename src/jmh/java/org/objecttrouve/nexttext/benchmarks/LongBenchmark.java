@@ -1,13 +1,17 @@
 package org.objecttrouve.nexttext.benchmarks;
 
 import com.google.common.base.Strings;
+import org.apache.commons.io.IOUtils;
 import org.objecttrouve.nexttext.NextText;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
+import org.openjdk.jmh.util.FileUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
+
 
 @BenchmarkMode(Mode.AverageTime)
 @Warmup(iterations = 10)
@@ -38,8 +42,8 @@ public class LongBenchmark {
         public void setUp() throws IOException {
             nextText = new NextText.Builder().build();
 
-            source1 = Files.readString(Paths.get("LaBible-Genese.html"));
-            source2 = Files.readString(Paths.get("LaBible-Exode.html"));
+            source1 = read("/home/heidi/mine/gitte/objecttrouve/nexttext/src/jmh/resources/LaBible-Genese.html");
+            source2 = read("/home/heidi/mine/gitte/objecttrouve/nexttext/src/jmh/resources/LaBible-Exode.html");
 
             source1_x2 = Strings.repeat(source1, 2);
             source2_x2 = Strings.repeat(source2, 2);
@@ -53,6 +57,14 @@ public class LongBenchmark {
             source1_x256 = Strings.repeat(source1_x4, 16);
             source2_x256 = Strings.repeat(source2_x4, 16);
         }
+
+        private String read(String fileName) throws IOException {
+            FileInputStream fis = new FileInputStream(fileName);
+            String longString = IOUtils.toString(fis, StandardCharsets.UTF_8);
+            fis.close();
+            return longString;
+        }
+
     }
 
     @Benchmark
