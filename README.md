@@ -118,7 +118,9 @@ Didn't find it among the top 10 on Google. (Or googled the wrong buzzwords.) And
 Giving the algorithm is so trivial, I'm sure it already exists. Or otherwise it's just crap.
 I'm implementing it anyway as a nice playground to learn Kotlin.
 
-So, forgive me and let me know if I plagiarized.
+So, forgive me and let me know if I (unintentionally) plagiarized.
+
+:see_no_evil: And condone the amateurish Kotlin...
 
 ## Usage
 
