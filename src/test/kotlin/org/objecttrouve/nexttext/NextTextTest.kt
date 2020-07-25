@@ -142,4 +142,63 @@ class NextTextTest {
     @Test(expected = IllegalArgumentException::class) fun Builder__withMaxCodePoint__negative_input() {
         NextText.Builder().withMaxCodePoint(-1)
     }
+
+    @Test fun criDistance__conjugated() {
+        val nextText = NextText.Builder().build()
+        val word1 = "scribere"
+
+        assertThat(nextText.criDistance(word1, "scribo"), closeTo(0.286, 0.001))
+        assertThat(nextText.criDistance(word1, "scribis"), closeTo(0.333, 0.001))
+        assertThat(nextText.criDistance(word1, "scribit"), closeTo(0.333, 0.001))
+        assertThat(nextText.criDistance(word1, "scribimus"), closeTo(0.412, 0.001))
+        assertThat(nextText.criDistance(word1, "scribitis"), closeTo(0.412, 0.001))
+        assertThat(nextText.criDistance(word1, "scribunt"), closeTo(0.375, 0.001))
+
+        val word2 = "scribo"
+
+        assertThat(nextText.criDistance(word2, "scribis"), closeTo(0.231, 0.001))
+        assertThat(nextText.criDistance(word2, "scribit"), closeTo(0.231, 0.001))
+        assertThat(nextText.criDistance(word2, "scribimus"), closeTo(0.333, 0.001))
+        assertThat(nextText.criDistance(word2, "scribitis"), closeTo(0.333, 0.001))
+        assertThat(nextText.criDistance(word2, "scribunt"), closeTo(0.286, 0.001))
+
+        val word3 = "scribis"
+
+        assertThat(nextText.criDistance(word3, "scribit"), closeTo(0.143, 0.001))
+        assertThat(nextText.criDistance(word3, "scribimus"), closeTo(0.25, 0.001))
+        assertThat(nextText.criDistance(word3, "scribitis"), closeTo(0.25, 0.001))
+        assertThat(nextText.criDistance(word3, "scribunt"), closeTo(0.333, 0.001))
+
+        val word4 = "scribit"
+
+        assertThat(nextText.criDistance(word4, "scribimus"), closeTo(0.25, 0.001))
+        assertThat(nextText.criDistance(word4, "scribitis"), closeTo(0.125, 0.001))
+        assertThat(nextText.criDistance(word4, "scribunt"), closeTo(0.333, 0.001))
+
+        val word5 = "scribimus"
+
+        assertThat(nextText.criDistance(word5, "scribitis"), closeTo(0.222, 0.001))
+        assertThat(nextText.criDistance(word5, "scribunt"), closeTo(0.412, 0.001))
+
+        val word6 = "scribitis"
+
+        assertThat(nextText.criDistance(word6, "scribunt"), closeTo(0.412, 0.001))
+
+
+        assertThat(nextText.criDistance("lego", "scribo"), closeTo(1.0, 0.001))
+        assertThat(nextText.criDistance("legis", "scribis"), closeTo(0.833, 0.001))
+        assertThat(nextText.criDistance("legit", "scribit"), closeTo(0.833, 0.001))
+        assertThat(nextText.criDistance("legimus", "scribimus"), closeTo(0.875, 0.001))
+        assertThat(nextText.criDistance("legitis", "scribitis"), closeTo(0.75, 0.001))
+        assertThat(nextText.criDistance("legunt", "scribunt"), closeTo(1.0, 0.001))
+
+
+        // 😢
+        assertThat(nextText.criDistance("avus", "clavus"), closeTo(1.0, 0.001))
+
+
+        assertThat(nextText.criDistance("lex", "lux"), closeTo(0.333, 0.001))
+
+    }
+
 }

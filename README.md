@@ -82,6 +82,8 @@ The algorithm honors identical subsequences that can appear in different orders 
 Finally, it would be nice to have a normalized value which is easier to interpret than the raw distance. 
 We divide the distance by the sum of the two text's lengths and we get a result between 0 and 1, 0 meaning identical and 1 meaning nothing in common at all.
 
+:warning: The metric can be tricky if the compared strings don't contain any repeating characters. It returns 1 when differences occur at the beginning.
+
 #### More Formally
 
 Let _s<sub>i<sub>_ be a unique symbol where _0 &le; i &le; n_ .
