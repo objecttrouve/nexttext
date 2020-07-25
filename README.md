@@ -126,6 +126,8 @@ So, forgive me and let me know if I (unintentionally) plagiarized.
 
 ## Usage
 
+I have a weakness for the builder pattern, so the API looks like this:
+
 ```
         val nextText = NextText.Builder()
                 .withMinCodePoint(0)
