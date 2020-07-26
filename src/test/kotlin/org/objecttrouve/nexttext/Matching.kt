@@ -1,3 +1,7 @@
+/**
+ * Released under the terms of the Apache License 2.0.
+ * Copyright (c) 2020 objecttrouve.org <un.object.trouve@gmail.com>.
+ */
 package org.objecttrouve.nexttext
 
 import org.objecttrouve.testing.matchers.ConvenientMatchers

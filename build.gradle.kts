@@ -1,9 +1,12 @@
+import groovy.lang.Closure
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     id("org.jetbrains.kotlin.jvm").version("1.3.20")
     id("org.jetbrains.dokka").version("0.10.1")
     id("me.champeau.gradle.jmh").version("0.5.0")
+    id ("com.github.hierynomus.license").version("0.15.0")
+    id("com.dorongold.task-tree").version("1.5")
 }
 
 repositories {
@@ -33,6 +36,13 @@ jmh {
     isIncludeTests = false
 }
 
+license {
+    header = file("license/header.txt")
+    strictCheck = true
+    includes(mutableSetOf("**/*.kt", "**/*.java"))
+}
+
+
 tasks {
 
     val sourcesJar by creating(Jar::class) {
@@ -60,6 +70,7 @@ tasks {
         archives(jar)
         archives(dokkaJar)
     }
+
 }
 
 
