@@ -108,7 +108,7 @@ Let <i>M<sub>2</sub><sup>i⨯l</sup></i> be a matrix of CRI counts _c_ of _S<sub
 
 Let <i>M<sub>diff</sub></i> be the subtraction of the two matrixes: <i>M<sub>diff</sub> = M<sub>1</sub> - M<sub>2</sub></i>
 
-Then the absolute CRI distance _D_ is just the sum over the elements _d_ of <i>M<sub>diff</sub></i>: <i>D = &#x2211;d<sub>i,l</sub></i>
+Then the absolute CRI distance _D_ is just the sum over the absolute values of _d_ of <i>M<sub>diff</sub></i>: <i>D = &#x2211;|d<sub>i,l</sub>|</i>
 
 The normalized CRI distance is _D/(L<sub>1</sub>+L<sub>2</sub>)_.
 
