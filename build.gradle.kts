@@ -52,6 +52,9 @@ publishing {
         create<MavenPublication>("mavenKotlin") {
             groupId = "org.objecttrouve"
             pom {
+                name.set("Next Text")
+                description.set("Experimental similarity measure for text documents.")
+                url.set("https://github.com/objecttrouve/nexttext")
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
