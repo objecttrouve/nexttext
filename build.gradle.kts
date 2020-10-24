@@ -109,6 +109,10 @@ tasks {
         dependsOn(dokka)
     }
 
+    named("afterReleaseBuild") {
+        dependsOn("publish")
+    }
+
     artifacts {
         archives(sourcesJar)
         archives(jar)
@@ -116,7 +120,10 @@ tasks {
     }
 
 
+
+
 }
+
 
 
 val compileKotlin: KotlinCompile by tasks
