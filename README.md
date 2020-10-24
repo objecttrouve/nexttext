@@ -1,6 +1,9 @@
 
 [<img src="https://travis-ci.org/objecttrouve/nexttext.svg?branch=master" alt="Travis build"/>](https://travis-ci.org/objecttrouve/nexttext)
 
+[<img src="https://maven-badges.herokuapp.com/maven-central/org.objecttrouve/nexttext/badge.svg" alt="Latest release in Maven Repository"/>](https://mvnrepository.com/artifact/org.objecttrouve/nexttext)
+
+
 # Next Text
 
 Experimental library for a simple text similarity measure.
