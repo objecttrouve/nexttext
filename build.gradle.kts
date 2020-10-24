@@ -76,7 +76,10 @@ publishing {
     repositories {
         maven {
             name = "nextTextOnSonatype"
-            // change URLs to point to your repos, e.g. http://my.org/repo
+            credentials {
+                username = project.properties["ossrhUsername"] as String?
+                password = project.properties["ossrhPassword"] as String?
+            }
             val releasesRepoUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
             val snapshotsRepoUrl = uri("https://oss.sonatype.org/content/repositories/snapshots/")
             url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
